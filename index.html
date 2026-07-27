@@ -2,11 +2,90 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Une petite question...</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #fce4ec;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+    }
+    .card {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      text-align: center;
+      max-width: 400px;
+      width: 85%;
+    }
+    .subtitle {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #888;
+      font-weight: bold;
+    }
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin: 15px 0;
+    }
+    .hint {
+      font-size: 13px;
+      color: #aaa;
+      font-style: italic;
+      margin-bottom: 25px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    button {
+      padding: 12px 24px;
+      border-radius: 25px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      transition: transform 0.2s;
+    }
+    #btn-yes {
+      background-color: #e91e63;
+      color: white;
+    }
+    #btn-no {
+      background-color: #eee;
+      color: #666;
+    }
+    .dates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .date-btn {
+      background-color: #fff0f5;
+      color: #e91e63;
+      border: 1px solid #f8bbd0;
+    }
+    .date-btn:hover {
+      background-color: #e91e63;
+      color: white;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <!-- Écran 1 -->
+
+  <!-- Étape 1 -->
   <div id="step-1" class="card">
     <p class="subtitle">POUR TOI ❤️</p>
     <h1>Ça te dit un date avec moi ?</h1>
@@ -17,45 +96,45 @@
     </div>
   </div>
 
-  <!-- Écran 2 (Caché au début) -->
+  <!-- Étape 2 -->
   <div id="step-2" class="card hidden">
     <p class="subtitle">PARFAIT !</p>
     <h1>On va voir quel film ?</h1>
-    <!-- Ajoute tes choix d'horaires et ton formulaire ici -->
-    <p class="subtitle">CHOISIS UN JOUR :</p>
-<div class="dates-list">
-  <button class="date-btn" onclick="selectDate('Jeudi 6 août')">Jeudi 6 août</button>
-  <button class="date-btn" onclick="selectDate('Vendredi 7 août')">Vendredi 7 août</button>
-  <button class="date-btn" onclick="selectDate('Samedi 8 août')">Samedi 8 août</button>
- <button class="date-btn" onclick="selectDate('Dimanche 9 août')">Dimanche 9 août</button>
-</div>
+    <p class="subtitle" style="margin-top:20px;">CHOISIS UN JOUR :</p>
+    <div class="dates-list">
+      <button class="date-btn" onclick="selectDate('Jeudi 6 août')">Jeudi 6 août</button>
+      <button class="date-btn" onclick="selectDate('Vendredi 7 août')">Vendredi 7 août</button>
+      <button class="date-btn" onclick="selectDate('Samedi 8 août')">Samedi 8 août</button>
+      <button class="date-btn" onclick="selectDate('Dimanche 9 août')">Dimanche 9 août</button>
+    </div>
+    <p id="selected-result" style="margin-top: 20px; font-weight: bold; color: #e91e63;"></p>
+  </div>
 
-<p id="selected-result" style="margin-top: 20px; font-weight: bold; color: #d9534f;"></p>
+  <script>
+    const btnNo = document.getElementById('btn-no');
+    const btnYes = document.getElementById('btn-yes');
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
 
-  <script src="script.js"></script>
+    // Le bouton "Non" qui s'échappe
+    btnNo.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - btnNo.clientWidth);
+      const y = Math.random() * (window.innerHeight - btnNo.clientHeight);
+      btnNo.style.position = 'absolute';
+      btnNo.style.left = `${x}px`;
+      btnNo.style.top = `${y}px`;
+    });
+
+    // Passer à l'étape 2
+    btnYes.addEventListener('click', () => {
+      step1.classList.add('hidden');
+      step2.classList.remove('hidden');
+    });
+
+    // Sélection de la date
+    function selectDate(date) {
+      document.getElementById('selected-result').innerText = "C'est noté pour le " + date + " ! ❤️";
+    }
+  </script>
 </body>
 </html>
-
-const btnNo = document.getElementById('btn-no');
-const btnYes = document.getElementById('btn-yes');
-const step1 = document.getElementById('step-1');
-const step2 = document.getElementById('step-2');
-
-// Le bouton "Non" s'échappe quand le curseur s'approche
-btnNo.addEventListener('mouseover', () => {
-  const x = Math.random() * (window.innerWidth - btnNo.clientWidth);
-  const y = Math.random() * (window.innerHeight - btnNo.clientHeight);
-  btnNo.style.position = 'absolute';
-  btnNo.style.left = `${x}px`;
-  btnNo.style.top = `${y}px`;
-});
-
-// Le bouton "Oui" passe à la suite
-btnYes.addEventListener('click', () => {
-  step1.classList.add('hidden');
-  step2.classList.remove('hidden');
-});
-function selectDate(date) {
-  document.getElementById('selected-result').innerText = "C'est noté pour le " + date + " ! ❤️";
-}
-
