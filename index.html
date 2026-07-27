@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Une petite question...</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Écran 1 -->
+  <div id="step-1" class="card">
+    <p class="subtitle">POUR TOI ❤️</p>
+    <h1>Ça te dit un date avec moi ?</h1>
+    <p class="hint">(dire non ne sert à rien, mais tu peux essayer)</p>
+    <div class="buttons">
+      <button id="btn-no">Non</button>
+      <button id="btn-yes">Oui</button>
+    </div>
+  </div>
+
+  <!-- Écran 2 (Caché au début) -->
+  <div id="step-2" class="card hidden">
+    <p class="subtitle">PARFAIT !</p>
+    <h1>On va voir quel film ?</h1>
+    <!-- Ajoute tes choix d'horaires et ton formulaire ici -->
+    <p class="subtitle">CHOISIS UN JOUR :</p>
+<div class="dates-list">
+  <button class="date-btn" onclick="selectDate('Jeudi 6 août')">Jeudi 6 août</button>
+  <button class="date-btn" onclick="selectDate('Vendredi 7 août')">Vendredi 7 août</button>
+  <button class="date-btn" onclick="selectDate('Samedi 8 août')">Samedi 8 août</button>
+ <button class="date-btn" onclick="selectDate('Dimanche 9 août')">Dimanche 9 août</button>
+</div>
+
+<p id="selected-result" style="margin-top: 20px; font-weight: bold; color: #d9534f;"></p>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+const btnNo = document.getElementById('btn-no');
+const btnYes = document.getElementById('btn-yes');
+const step1 = document.getElementById('step-1');
+const step2 = document.getElementById('step-2');
+
+// Le bouton "Non" s'échappe quand le curseur s'approche
+btnNo.addEventListener('mouseover', () => {
+  const x = Math.random() * (window.innerWidth - btnNo.clientWidth);
+  const y = Math.random() * (window.innerHeight - btnNo.clientHeight);
+  btnNo.style.position = 'absolute';
+  btnNo.style.left = `${x}px`;
+  btnNo.style.top = `${y}px`;
+});
+
+// Le bouton "Oui" passe à la suite
+btnYes.addEventListener('click', () => {
+  step1.classList.add('hidden');
+  step2.classList.remove('hidden');
+});
+function selectDate(date) {
+  document.getElementById('selected-result').innerText = "C'est noté pour le " + date + " ! ❤️";
+}
+
